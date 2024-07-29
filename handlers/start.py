@@ -3,7 +3,7 @@ import sqlite3
 from datetime import datetime
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, ContextTypes, ConversationHandler, CommandHandler, MessageHandler, filters, CallbackQueryHandler
-from .common_handlers import start, process_go, receive_receipt, full_name, work_place, age, teaching_experience, city, confirm_subscription, check_subscriptions, required_channels, main_channel
+from .common_handlers import start, process_go, receive_receipt, full_name, work_place, age, teaching_experience, city, confirm_subscription, check_subscriptions, required_channels, main_channel_invite_link
 from handlers.think_handler import think, reminder_response
 # Импорт функции think из think_handler.py
 
@@ -185,7 +185,7 @@ async def confirm_subscription(update: Update, context: ContextTypes.DEFAULT_TYP
     if query.data == 'confirm_yes':
         user_id = query.from_user.id
         if await check_subscriptions(user_id, context.bot):
-            await query.edit_message_text(text=f"Thank you for confirming! You are now an official member and have access to {main_channel}.")
+            await query.edit_message_text(text=f"Thank you for confirming! You are now an official member and have access to {main_channel_invite_link}.")
             return ConversationHandler.END
         else:
             await query.edit_message_text(text="You are not subscribed to all the required channels. Please subscribe and try again.")
